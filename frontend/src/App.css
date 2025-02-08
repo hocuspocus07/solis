@@ -1,0 +1,12 @@
+@import "tailwindcss";
+#root {
+  max-width: 1280px;
+  margin: 0;
+  text-align: center;
+}
+.custom-bg{
+  background: url('./assets/background.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
