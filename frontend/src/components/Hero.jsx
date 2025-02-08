@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 function HeroSection() {
     const word = "S O L I S";
     const [text, setText] = useState("");
@@ -9,11 +8,6 @@ function HeroSection() {
     const typingSpeed = 200;
     const deletingSpeed = 100;
     const pauseDuration = 1000;
-    const navigate = useNavigate();
-
-    const handleButtonClick = () => {
-      navigate("/verify-review"); // Navigate to the VerifyReview component
-    };
   
     useEffect(() => {
       const handleTyping = () => {
@@ -56,7 +50,7 @@ function HeroSection() {
       transition={{ duration: 1, ease: "easeInOut" }}
     >
       <motion.span
-        className="text-9xl mt-30 text-bold sm:text-5xl mt-10 text-white custom-font md:text-9xl"
+        className="text-9xl mt-30 text-bold sm:text-5xl text-white custom-font md:text-9xl"
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1, delay: 2 }}

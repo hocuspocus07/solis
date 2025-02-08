@@ -19,11 +19,11 @@ function Review() {
         }
 
         try {
-            const response = await fetch(`${API_URL}/run-pipeline`, {
+            const response = await fetch('http://localhost:5000/run-pipeline', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ productUrl: productUrl }),
-              }); 
+                body: JSON.stringify({ productUrl }),
+            });
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
