@@ -9,7 +9,9 @@ const PORT = 5000;
 
 app.use(cors());
 app.use(bodyParser.json());
-
+app.get('/', (req, res) => {
+    res.send('Welcome to the backend!');
+  });
 // Start the server
 app.post("/run-pipeline", (req, res) => {
     const { productUrl } = req.body;
