@@ -4,9 +4,44 @@
   margin: 0;
   text-align: center;
 }
+.logo{
+  background: url('./assets/solis.png');
+}
 .custom-bg{
-  background: url('./assets/background.jpg');
+  background: url('./assets/heroImage.png');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+.nav-link:hover .underline {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.bg2{
+  background: url('./assets/page2.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@font-face {
+  font-family: 'CustomFont';
+  src: url('./assets/Verbatim-ExtendedBlack.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+.custom-font{
+  font-family: 'CustomFont', sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
 }

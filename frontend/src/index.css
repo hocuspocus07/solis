@@ -66,3 +66,54 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animated-gradient {
+  background-size: 200% auto;
+  animation: gradientShift 3s linear infinite;
+}
+html, body {
+  overflow-x: hidden; 
+  width: 100vw;
+}
+
+/* Custom sleek scrollbar */
+::-webkit-scrollbar {
+  width: 6px; /* Thin scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a; /* Dark background */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4a4a4a; /* Subtle gray thumb */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #666; /* Slightly lighter on hover */
+}
+
+/* Hide horizontal scrollbar */
+html, body {
+  overflow-x: hidden;
+}
+
+@font-face {
+  font-family: 'CustomFont';
+  src: url('./assets/Verbatim-ExtendedBlack.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+.custom-font{
+  font-family: 'CustomFont', sans-serif;
+  font-weight: bold;
+}
