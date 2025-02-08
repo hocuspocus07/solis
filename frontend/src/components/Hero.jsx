@@ -50,39 +50,46 @@ function HeroSection() {
 
   return (
     <motion.section
-      className="h-96 w-screen flex flex-col items-center md:px-40 text-white"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1, ease: "easeInOut" }}
+  className="min-h-screen w-screen flex flex-col items-center justify-center px-4 md:px-40 text-white"
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 1, ease: "easeInOut" }}
+>
+  {/* Main Heading with Typewriter Effect */}
+  <motion.span
+    className="text-5xl sm:text-7xl md:text-9xl font-bold mt-10 text-white custom-font"
+    initial={{ x: -100, opacity: 0 }}
+    animate={{ x: 0, opacity: 1 }}
+    transition={{ duration: 1, delay: 2 }}
+  >
+    {text}
+    <span
+      className={`ml-1 ${blink ? "opacity-100" : "opacity-0"} text-white`}
     >
-      <motion.span
-        className="text-9xl text-bold sm:text-5xl mt-10 text-white custom-font md:text-9xl"
-        initial={{ x: -100, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 1, delay: 2 }}
-      >
-        {text}
-        <span
-          className={`ml-1 ${blink ? "opacity-100" : "opacity-0"} text-white`}
-        >
-          |
-        </span>
-      </motion.span>
-      <motion.p
-        className="mt-2 sm:mt-8 text-sm max-w-xl sm:max-w-2xl md:text-sm"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.6 }}
-      >keeping it real
-      </motion.p>
-      <motion.p
-        className="mt-4 text-sm sm:text-lg md:text-lg max-w-xl sm:max-w-2xl"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.6 }}
-      >Detecting fake reviews using AI and ensuring authenticity on the Ethereum blockchain — because trust should be tamper-proof.
-      </motion.p>
-    </motion.section>
+      |
+    </span>
+  </motion.span>
+
+  {/* Subheading */}
+  <motion.p
+    className="mt-4 text-sm sm:text-base md:text-lg max-w-xl sm:max-w-2xl text-center"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 1, delay: 0.6 }}
+  >
+    Keeping it real
+  </motion.p>
+
+  {/* Description */}
+  <motion.p
+    className="mt-4 text-xs sm:text-sm md:text-lg max-w-xl sm:max-w-2xl text-center"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 1, delay: 0.6 }}
+  >
+    Detecting fake reviews using AI and ensuring authenticity on the Ethereum blockchain — because trust should be tamper-proof.
+  </motion.p>
+</motion.section>
   );
 }
 
