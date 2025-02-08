@@ -56,7 +56,7 @@ function HeroSection() {
       transition={{ duration: 1, ease: "easeInOut" }}
     >
       <motion.span
-        className="text-9xl text-bold sm:text-5xl mt-10 text-white custom-font md:text-9xl"
+        className="text-9xl mt-30 text-bold sm:text-5xl mt-10 text-white custom-font md:text-9xl"
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 1, delay: 2 }}
@@ -69,7 +69,7 @@ function HeroSection() {
         </span>
       </motion.span>
       <motion.p
-        className="mt-2 sm:mt-8 text-sm max-w-xl sm:max-w-2xl md:text-sm"
+        className="mt-200 sm:mt-8 text-sm max-w-xl sm:max-w-2xl md:text-sm"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.6 }}

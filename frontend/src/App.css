@@ -13,13 +13,25 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+.about{
+  background: url('./assets/6.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.dev{
+  background: url('./assets/8.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 .nav-link:hover .underline {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
 
 .bg2{
-  background: url('./assets/page2.png');
+  background: url('./assets/4.png');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
