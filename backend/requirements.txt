@@ -1,0 +1,8 @@
+web3
+python-dotenv
+selenium
+webdriver-manager
+beautifulsoup4
+pandas
+numpy
+scikit-learn
