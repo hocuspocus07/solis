@@ -12,6 +12,7 @@
   "dependencies": {
     "@bradgarropy/next-link": "^1.1.0",
     "@tailwindcss/vite": "^4.0.4",
+    "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "framer-motion": "^12.4.0",
     "react": "^19.0.0",

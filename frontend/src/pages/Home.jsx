@@ -10,7 +10,7 @@ import Footer from '../components/Footer.jsx';
 function Home() {
     return (
         <>
-        <div className='custom-bg h-screen w-screen'>
+        <div className='custom-bg flex flex-col justify-center items-center h-screen w-screen'>
             <NavComp />
             <Hero/>
             <Review/>
