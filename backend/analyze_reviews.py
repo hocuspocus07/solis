@@ -75,7 +75,7 @@ evaluationResults = {
 }
 
 # Predicting on scraped dataset
-newFilePath = os.path.join(scriptDir, "data", "myntraReviews.csv")
+newFilePath = os.path.join(scriptDir, "data", "myntra_reviews.csv")
 newData = pd.read_csv(newFilePath)
 newData['Review'] = newData['Review'].fillna("unknown")
 
