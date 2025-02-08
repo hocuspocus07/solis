@@ -32,6 +32,7 @@ function Home() {
             }
 
             const data = await response.json();
+            console.log(data);
             setPredictions(data.predictions_data);
         } catch (error) {
             setError(error.message);

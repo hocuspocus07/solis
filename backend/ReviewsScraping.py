@@ -142,26 +142,6 @@ if __name__ == "__main__":
     scrape_reviews_from_product_url(product_url)
 
 
-# In[32]:
-
-
-import nbformat
-from nbconvert import PythonExporter
-
-# Load the notebook
-with open("linearSVM.ipynb", "r", encoding="utf-8") as f:
-    notebook = nbformat.read(f, as_version=4)
-
-# Convert to Python script
-exporter = PythonExporter()
-python_script, _ = exporter.from_notebook_node(notebook)
-
-# Save as .py file
-with open("linearSVM.py", "w", encoding="utf-8") as f:
-    f.write(python_script)
-
-
-# In[ ]:
 
 
 
