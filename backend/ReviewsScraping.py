@@ -18,92 +18,83 @@ def initialize_driver():
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--window-size=1920,1080")
+    options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     return driver
 
-#getting review url (made by analysing a pattern in links)
 def get_review_url(product_url):
     product_id_match = re.search(r'/(\d+)/buy', product_url)
-    
     if product_id_match:
-        product_id = product_id_match.group(1)
-        review_url = f'https://www.myntra.com/reviews/{product_id}'
-        return review_url
-    else:
-        print("Invalid product URL. Could not extract product ID.")
-        return None
+        return f'https://www.myntra.com/reviews/{product_id_match.group(1)}'
+    print("Invalid product URL format")
+    return None
 
 def scroll_and_scrape(driver, review_url, max_reviews=200):
-    driver.get(review_url)
     try:
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'user-review-reviewTextWrapper')))
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'user-review-starRating')))
-        time.sleep(2)
+        driver.get(review_url)
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_all_elements_located((By.CLASS_NAME, 'user-review-reviewTextWrapper'))
+        )
+        
+        review_texts = []
+        star_ratings = []
+        last_count = 0
+        
+        while len(review_texts) < max_reviews:
+            reviews = driver.find_elements(By.CLASS_NAME, 'user-review-reviewTextWrapper')
+            if not reviews:
+                print("No reviews found after scrolling")
+                break
+                
+            try:
+                driver.execute_script("arguments[0].scrollIntoView();", reviews[-1])
+            except IndexError:
+                break
+                
+            time.sleep(2) 
+            
+            soup = BeautifulSoup(driver.page_source, 'html.parser')
+            new_reviews = soup.find_all('div', class_='user-review-reviewTextWrapper')
+            new_ratings = soup.find_all('span', class_='user-review-starRating')
+            
+            if len(new_reviews) == last_count:
+                print("No more reviews loading")
+                break
+                
+            last_count = len(new_reviews)
+            review_texts = [r.get_text(strip=True) for r in new_reviews][:max_reviews]
+            star_ratings = [s.get_text(strip=True) for s in new_ratings][:max_reviews]
+
+        return review_texts, star_ratings
+        
     except Exception as e:
-        print(f"Error while waiting for elements: {e}")
+        print(f"Error during scraping: {str(e)}")
+        return [], []
 
-    review_texts = []
-    star_ratings = []
-
-    while len(review_texts) < max_reviews:
-        last_review = driver.find_elements(By.CLASS_NAME, 'user-review-reviewTextWrapper')[-1]
-        driver.execute_script("arguments[0].scrollIntoView();", last_review)
-        time.sleep(2)
-
+def scrape_reviews_from_product_url(product_url, max_reviews=200):
+    driver = None
+    try:
+        review_url = get_review_url(product_url)
+        if not review_url:
+            return None, None
+            
+        driver = initialize_driver()
+        review_texts, star_ratings = scroll_and_scrape(driver, review_url, max_reviews)
         
-        soup = BeautifulSoup(driver.page_source, 'html.parser')
-        reviews = soup.find_all('div', class_='user-review-reviewTextWrapper')
-        ratings = soup.find_all('span', class_='user-review-starRating')
-
-       
-        if len(reviews) == len(review_texts):
-            break
+        # Create DataFrame and save
+        df = pd.DataFrame({'Review': review_texts, 'Stars': star_ratings})
+        df.to_csv(os.path.join("data", "myntra_reviews.csv"), index=False)
+        return df
         
-        
-        review_texts = [review.get_text(strip=True) for review in reviews]
-        star_ratings = [rating.get_text(strip=True) for rating in ratings]
-    
-    
-    review_texts = review_texts[:max_reviews]
-    star_ratings = star_ratings[:max_reviews]
-
-    return review_texts, star_ratings
-
-
-def scrape_reviews_from_product_url(product_url, max_reviews=1000):
-    review_url = get_review_url(product_url)
-    
-    if review_url is None:
-        return None, None
-    
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    review_texts, star_ratings = scroll_and_scrape(driver, review_url, max_reviews)
-    if len(review_texts) != len(star_ratings):
-        min_len = min(len(review_texts), len(star_ratings))
-        review_texts = review_texts[:min_len]
-        star_ratings = star_ratings[:min_len]
-
-    data = {
-        'Review': review_texts,
-        'Stars': star_ratings
-    }
-    df = pd.DataFrame(data)
-    df.to_csv(os.path.join("data", "myntra_reviews.csv"), index=False)
-
-    driver.quit()
-
-    return df
-
+    finally:
+        if driver:
+            driver.quit() 
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
+        print("Usage: python script.py <product_url>")
         sys.exit(1)
-
+        
     product_url = sys.argv[1]
     scrape_reviews_from_product_url(product_url)
-
-
-
-
-
-

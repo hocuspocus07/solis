@@ -5,7 +5,7 @@ function Review() {
     const [analysisResults, setAnalysisResults] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const API_URL = 'https://solis-4hmj.onrender.com';
+    const API_URL = 'https://vigil-project.onrender.com';
     async function scrapeReviews() {
         const productUrl = document.getElementById('productUrl').value;
         setLoading(true);
@@ -19,7 +19,7 @@ function Review() {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/run-pipeline', {
+            const response = await fetch(`http://localhost:5000/run-pipeline`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ productUrl }),
